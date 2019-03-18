@@ -1,7 +1,7 @@
 const config = {
   "token": "weixin",
-  "appID": "wx1d89b5ff37c0c408",
-  "appSecret": "4742606ad6c669de92839f6d0027191c",
+  "appID": "wx7bd54a*******11b8e2",
+  "appSecret": "0b13a8d*****41dcccd10c209877d",
   "apiDomain": "https://api.weixin.qq.com/",
   "apiURL": {
     "accessTokenApi": "%scgi-bin/token?grant_type=client_credential&appid=%s&secret=%s",

@@ -1,8 +1,8 @@
 {
   "button": [{
       "type": "view",
-      "name": "博客",
-      "url": "http://blog.csdn.net/hvkcoder"
+      "name": "主页",
+      "url": "http://amigogo.ticp.io/"
     },
     {
       "type": "click",
@@ -10,7 +10,7 @@
       "key": "today_recommend"
     },
     {
-      "name": "小工具",
+      "name": "工具",
       "sub_button": [{
         "type": "scancode_waitmsg",
         "name": "扫一扫",

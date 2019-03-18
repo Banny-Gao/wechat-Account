@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Document</title>
-    <style>
-      .imgContainer {
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Document</title>
+  <style>
+    .imgContainer {
         width: 200px;
       }
       .imgContainer img {
@@ -14,20 +15,15 @@
         height: auto;
       }
     </style>
-  </head>
+</head>
 
-  <body>
-    原生调用摄像头<input
-      type="file"
-      capture="camera"
-      accept="video/*"
-      name=""
-      value=""
-    />
-    <button class="chooseImg">点击拍照上传,jssdk接口调用</button>
-    <div class="imgContainer"></div>
-    <button class="share">分享到朋友圈</button>
-  </body>
+<body>
+  原生调用摄像头<input type="file" capture="camera" accept="video/*" name="" value="" />
+  <button class="chooseImg">点击拍照上传,jssdk接口调用</button>
+  <div class="imgContainer"></div>
+  <button class="share">分享到朋友圈</button>
+</body>
+
 </html>
 <script src="http://res.wx.qq.com/open/js/jweixin-1.5.0.js"></script>
 <script src="./wx.config.js"></script>
@@ -59,12 +55,12 @@
     wx.config(config)
     wx.ready(() => {
       // alert('jssdk is ready')
-      $btnChooseImg.onclick = function() {
+      $btnChooseImg.onclick = function () {
         wx.chooseImage({
           count: 1, // 默认9
           sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
           sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
-          success: function(chooseRes) {
+          success: function (chooseRes) {
             const localIds = chooseRes.localIds // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
             $imgContainer.style.setProperty(
               'background-image',
@@ -73,11 +69,11 @@
             wx.uploadImage({
               localId: localIds[0], // 需要上传的图片的本地ID，由chooseImage接口获得
               isShowProgressTips: 1, // 默认为1，显示进度提示
-              success: function(uploadRes) {
+              success: function (uploadRes) {
                 const serverId = uploadRes.serverId // 返回图片的服务器端ID
                 wx.getLocation({
                   type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
-                  success: function(lcationRes) {
+                  success: function (lcationRes) {
                     const latitude = lcationRes.latitude, // 纬度，浮点数，范围为90 ~ -90
                       longitude = lcationRes.longitude, // 经度，浮点数，范围为180 ~ -180。
                       speed = lcationRes.speed, // 速度，以米/每秒计
@@ -103,7 +99,7 @@
           imgUrl: '/1.jpg', // 分享图标
           type: 'link', // 分享类型,music、video或link，不填默认为link
           dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
-          success: function() {
+          success: function () {
             // 用户点击了分享后执行的回调函数
             alert('自定义分享成功！')
           }
@@ -112,29 +108,9 @@
         // wx.onMenuShareAppMessage()
         // wx.updateTimelineShareData(option)
       }
-      wx.error(function(err) {
+      wx.error(function (err) {
         alert(JSON.stringify(err))
       })
     })
   })
-
-  // token验证
-  // const options = {
-  //     echostr: '180220076877078519',
-  //     nonce: "1210271071",
-  //     signature: "e98bb0526b0b1697f644292ff4108340e9e61774",
-  //     timestamp: "1552326631"
-  //   },
-  //   urll = Object.keys(options).reduce((result, item) => {
-  //     const t = `&${item}=${options[item]}`
-  //     result += t
-  //     return result
-  //   }, '/testToken?')
-  // fetch(urll, {
-  //   method: 'GET',
-  // }).then(res => {
-  //   return res.json()
-  // }).then(data => {
-  //   console.log(data)
-  // })
 </script>

@@ -26,8 +26,10 @@ const get = (url, params = {}) => {
   })
 }
 
-const post = (url, data = {}) => {
-  data = qs.stringify(data)
+const post = (url, content = {}) => {
+  ContentType = 'application/x-www-form-urlencoded'
+  content = qs.stringify(content)
+
   return new Promise(function (resolve, reject) {
     //解析 url 地址
     const urlData = urlUtil.parse(url),
@@ -41,8 +43,8 @@ const post = (url, data = {}) => {
         method: 'POST',
         //头部协议
         headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-          'Content-Length': data.length
+          'Content-Type': ContentType,
+          'Content-Length': content.length
         }
       }
 
@@ -64,7 +66,7 @@ const post = (url, data = {}) => {
         reject(err)
       });
     //传入数据
-    req.write(data)
+    req.write(content)
     req.end()
   });
 }

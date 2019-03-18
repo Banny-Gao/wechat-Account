@@ -36,7 +36,7 @@ app.post('/api/getConfig', jsonParser, function (req, res) {
     const {
       access_token
     } = response
-    // console.log(response)
+    console.log(response)
     return promiseWraper(access_token)
   }).then(params => {
     return getTicket(params).then(response => {

@@ -12,7 +12,7 @@ const {
 
 
 const url = util.format(apiURL.accessTokenApi, apiDomain, appID, appSecret),
-  getToken = () => new Promise((resolve) => {
+  getToken = () => new Promise((resolve, reject) => {
     const currentTime = new Date().getTime()
     if (!accessTokenJson.access_token || accessTokenJson.expires_time < currentTime) {
       get(url).then(data => {
@@ -21,15 +21,20 @@ const url = util.format(apiURL.accessTokenApi, apiDomain, appID, appSecret),
           expires_in
         } = JSON.parse(data)
         expires_time = new Date().getTime() + (parseInt(expires_in) - 200) * 1000
-        const o = {
-          access_token,
-          expires_time
+        if (access_token) {
+          const o = {
+            access_token,
+            expires_time
+          }
+          fs.writeFile('./static/access_token.json', JSON.stringify(o), (err) => {
+            if (err) throw err;
+            console.log('文件已保存');
+          });
+          resolve(o)
+        } else {
+          reject(data)
         }
-        fs.writeFile('./static/access_token.json', JSON.stringify(o), (err) => {
-          if (err) throw err;
-          console.log('文件已保存');
-        });
-        resolve(o)
+
       })
     } else {
       //将本地存储的 access_token 返回

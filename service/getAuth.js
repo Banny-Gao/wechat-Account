@@ -26,18 +26,25 @@ const getWechatAuth = (req, res) => {
   if (signature == scyptoString) {
     res.send(echostr)
     // 创建自定义菜单
-    getToken().then(({
-      access_token
-    }) => {
-      const url = util.format(apiURL.createMenu, apiDomain, access_token)
-      post(url, menus).then(res => {
-        console.log(res)
-      })
-    })
+    createMenu()
   } else {
     res.send(false)
   }
   // next()
 }
+
+const createMenu = () => {
+  getToken().then(({
+    access_token
+  }) => {
+    const url = util.format(apiURL.createMenu, apiDomain, access_token)
+    post(url, menus).then(res => {
+      console.log(res)
+    })
+  }).catch(err => {
+    console.log(err)
+  })
+}
+
 
 module.exports = getWechatAuth
