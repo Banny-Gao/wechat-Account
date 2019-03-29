@@ -32,24 +32,38 @@ app.post('/api/getConfig', jsonParser, function (req, res) {
   } = Api, {
     url
   } = req.body
-  getToken().then(response => {
+
+  async function getConfig() {
     const {
       access_token
-    } = response
-    console.log(response)
-    return promiseWraper(access_token)
-  }).then(params => {
-    return getTicket(params).then(response => {
-      const {
-        ticket
-      } = JSON.parse(response)
-      return promiseWraper(ticket)
-    })
-  }).then(ticket => {
+    } = await getToken()
+    const {
+      ticket
+    } = await getTicket(access_token)
     const config = getSign(ticket, url)
-    console.log(config)
+    return config
+  }
+  getConfig().then(config => {
     res.json(config)
   })
+  // getToken().then(response => {
+  //   const {
+  //     access_token
+  //   } = response
+  //   console.log(response)
+  //   return promiseWraper(access_token)
+  // }).then(params => {
+  //   return getTicket(params).then(response => {
+  //     const {
+  //       ticket
+  //     } = response
+  //     return promiseWraper(ticket)
+  //   })
+  // }).then(ticket => {
+  //   const config = getSign(ticket, url)
+  //   console.log(config)
+  //   res.json(config)
+  // })
 })
 
 
