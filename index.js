@@ -67,7 +67,7 @@ app.post('/api/getConfig', jsonParser, function (req, res) {
 })
 
 
-const server = app.listen(80, '0.0.0.0', function () {
+const server = app.listen(8080, '0.0.0.0', function () {
   var host = server.address().address
   var port = server.address().port
   console.log("应用实例，访问地址为 http://%s:%s", host, port)

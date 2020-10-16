@@ -1,4 +1,4 @@
 window.__wxConfig = {
-  appId: 'wx7bd5****e3f11b8e2',
+  appId: 'wx4292751810bff506',
   jsApiList: ['chooseImage', 'uploadImage', 'getLocation', 'updateTimelineShareData']
 }
